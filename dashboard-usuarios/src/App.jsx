@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react';
 import UserCard from './components/UserCard';
-import './App.css'
 import Pagination from './components/Pagination';
+import './App.css';
 
 let PageSize = 10;
 
@@ -10,7 +10,7 @@ function App() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/peoples')
+    fetch('http://localhost:3000/peoples')
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((err) => console.error('Erro ao buscar usuários:', err));
@@ -19,25 +19,27 @@ function App() {
   const currentUserCard = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
-    return data.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage]);
-  
+    return users.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, users]);
+
   return (
     <div className='App'>
       <h1>Dashboard de Usuários</h1>
       <p>Total de Usuários: {users.length}</p>
+      
       <div className='user-container'>
-        {users.map((user) => (
+        {currentUserCard.map((user) => (
           <UserCard key={user.id} user={user} />
-          <Pagination
-            className="pagination-bar"
-            currentPage={currentPage}
-            totalCount={data.length}
-            pageSize={PageSize}
-            onPageChange={page => setCurrentPage(page)}
-          />
         ))}
       </div>
+
+      <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={users.length}
+        pageSize={PageSize}
+        onPageChange={page => setCurrentPage(page)}
+      />
     </div>
   );
 }

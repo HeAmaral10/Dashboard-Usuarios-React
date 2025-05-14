@@ -1,69 +1,86 @@
 .pagination-container {
+  display: inline-flex;
+  list-style-type: none;
+  justify-content: center;
+  padding: 0;
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 16px;
+
+  .pagination-item {
     display: flex;
-    list-style-type: none;
-  
-    .pagination-item {
-      padding: 0 12px;
-      height: 32px;
-      text-align: center;
-      margin: auto 4px;
-      color: rgba(0, 0, 0, 0.87);
-      display: flex;
-      box-sizing: border-box;
-      align-items: center;
-      letter-spacing: 0.01071em;
-      border-radius: 16px;
-      line-height: 1.43;
-      font-size: 13px;
-      min-width: 32px;
-  
-      &.dots:hover {
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    margin: 0 4px;
+    height: 32px;
+    min-width: 32px;
+    font-size: 13px;
+    color: black;
+    text-align: center;
+    border-radius: 16px;
+    box-sizing: border-box;
+    letter-spacing: 0.01071em;
+    line-height: 1.43;
+    transition: background-color 0.2s ease;
+    margin-top: 2px;
+    margin-bottom: 2px;
+
+    // Item selecionado (página atual)
+    &.selected {
+      background-color: red;
+      color: white;
+      font-weight: bold;
+    }
+
+    // Efeito ao passar o mouse
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+      cursor: pointer;
+    }
+
+    // Pontinhos (...) entre páginas
+    &.dots {
+      cursor: default;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    // Ícones de seta (esquerda/direita)
+    .arrow {
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 0.4em;
+        height: 0.4em;
+        border-right: 0.12em solid rgba(0, 0, 0, 0.87);
+        border-top: 0.12em solid rgba(0, 0, 0, 0.87);
+        transform: rotate(45deg);
+      }
+
+      &.left::before {
+        transform: rotate(-135deg);
+      }
+
+      &.right::before {
+        transform: rotate(45deg);
+      }
+    }
+
+    // Desabilitado (primeira ou última página)
+    &.disabled {
+      pointer-events: none;
+
+      .arrow::before {
+        border-color: rgba(0, 0, 0, 0.43);
+      }
+
+      &:hover {
         background-color: transparent;
         cursor: default;
       }
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.04);
-        cursor: pointer;
-      }
-  
-      &.selected {
-        background-color: rgba(0, 0, 0, 0.08);
-      }
-  
-      .arrow {
-        &::before {
-          position: relative;
-          /* top: 3pt; Remova essa linha do comentário para baixar os ícones conforme solicitado nos comentários*/
-          content: '';
-          /* Usando uma escala em, as setas terão o tamanho acompanhando a fonte */
-          display: inline-block;
-          width: 0.4em;
-          height: 0.4em;
-          border-right: 0.12em solid rgba(0, 0, 0, 0.87);
-          border-top: 0.12em solid rgba(0, 0, 0, 0.87);
-        }
-  
-        &.left {
-          transform: rotate(-135deg) translate(-50%);
-        }
-  
-        &.right {
-          transform: rotate(45deg);
-        }
-      }
-  
-      &.disabled {
-        pointer-events: none;
-  
-        .arrow::before {
-          border-right: 0.12em solid rgba(0, 0, 0, 0.43);
-          border-top: 0.12em solid rgba(0, 0, 0, 0.43);
-        }
-  
-        &:hover {
-          background-color: transparent;
-          cursor: default;
-        }
-      }
     }
   }
+}

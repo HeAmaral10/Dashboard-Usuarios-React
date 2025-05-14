@@ -2,6 +2,7 @@
   font-family: Arial, sans-serif;
   padding: 20px;
   text-align: center;
+  background-color: rgb(109, 109, 255);
 }
 
 .user-container {
@@ -9,3 +10,4 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
